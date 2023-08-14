@@ -1,0 +1,13 @@
+include::vars/render-vars.adoc[]
+include::vars/document-vars.adoc[]
+include::vars/redhat-vars.adoc[]
+include::vars/customer-vars.adoc[]
+
+:revnumber: {gitdateshort}
+
+= {subject}
+
+toc::[]
+
+include::content/env.adoc[]
+include::content/test.adoc[]

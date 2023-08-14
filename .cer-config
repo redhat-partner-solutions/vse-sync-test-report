@@ -1,0 +1,5 @@
+# CER config file which gets sourced by several scripts
+IMAGE=quay.io/redhat-cop/ubi8-asciidoctor:v1.3
+LANGUAGE=en_US
+
+LANGUAGE=en_US

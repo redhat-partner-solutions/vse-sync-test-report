@@ -1,0 +1,23 @@
+// --------------------------------
+// Document Information
+// This document-vars.adoc file contains mainly static/routine variables for the CER
+// It should not contain customer specific variables related to the customer name and related information
+// --------------------------------
+:toc-title: Table of Contents
+
+:subject: PTP Test Results
+// docstatus - indicates where in the lifecycle CER is (draft, in-progress, finish)
+// :docstatus: draft
+
+
+ifeval::[ "{docstatus}" == "draft"]
+:page-background-image: image:draft.png[]
+endif::[]
+
+
+:revnumber: {gitdate}
+
+
+// --------------------------------
+// Other Vars
+// --------------------------------
