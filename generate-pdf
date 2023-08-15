@@ -112,6 +112,52 @@ function runadocpdf() {
   fi
 }
 
+# cleanup report file
+function cleanupReport() {
+  echo 'include::vars/render-vars.adoc[]
+include::vars/document-vars.adoc[]
+include::vars/redhat-vars.adoc[]
+include::vars/customer-vars.adoc[]
+
+:revnumber: {gitdateshort}
+
+= {subject}
+
+toc::[]
+
+include::content/env.adoc[]
+include::content/test.adoc[]
+' > $REPORTNAME
+}
+
+## Get test spec as apendix
+## Input parameters:
+## APPENDIX_NAME - name for the appendix section
+## input - report file to read from
+function getApendix() {
+  BASE_URL=git@github.com:redhat-partner-solutions/vse-sync-test
+  BASE_URL_HTTPS="https://github.com/redhat-partner-solutions/vse-sync-test"
+  BASE_URL_BRANCH="/tree/integrate/"
+  ADOC_NAME=testspec.adoc
+  APPENDIX_NAME="$1"
+  input="$2"
+
+  echo "[appendix]" >> $REPORTNAME
+  echo "== ${APPENDIX_NAME}" >> $REPORTNAME
+
+  REPORT_FOLDER=`echo $BASE_URL |  sed -n -e "s/git@github.com:redhat-partner-solutions\///p"`
+  rm -rf $REPORT_FOLDER
+  git clone $BASE_URL.git
+
+  while read -r line
+  do
+    if grep -q "$BASE_URL_HTTPS" <<< "$line"; then
+      SPEC_PATH=`echo $line | sed -n -e "s|$BASE_URL_HTTPS||p" | sed -n -e "s|$BASE_URL_BRANCH||p"`
+      echo "include::${REPORT_FOLDER}/${SPEC_PATH}${ADOC_NAME}[]" >> $REPORTNAME
+    fi
+  done < "$input"
+}
+
 ## start script ##
 USAGE
 
@@ -172,6 +218,9 @@ ADOC_CMD="asciidoctor-pdf \
     --attribute=gitdateshort=${GIT_DATE_SHORT} \
     --attribute=githash=${GIT_HASH} \
     --out-file ${OUTFILE}"
+
+cleanupReport
+getApendix "PTP Tests" "${TOP_LEVEL}/content/test.adoc"
 
 # run the correct thing one.
 if [ "${GENERATE}" = "P" ] ; then
