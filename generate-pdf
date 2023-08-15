@@ -153,10 +153,10 @@ function getApendix() {
   do
     if grep -q "$BASE_URL_HTTPS" <<< "$line"; then
       SPEC_PATH=`echo $line | sed -n -e "s|$BASE_URL_HTTPS||p" | sed -n -e "s|$BASE_URL_BRANCH||p"`
-      
+      echo "Source: ${line}${ADOC_NAME}" >> $REPORTNAME
       echo "include::${REPORT_FOLDER}/${SPEC_PATH}${ADOC_NAME}[]" >> $REPORTNAME
       echo "" >> $REPORTNAME
-      echo "Source: ${line}${ADOC_NAME}" >> $REPORTNAME
+      echo "<<<" >> $REPORTNAME
       echo "" >> $REPORTNAME
     fi
   done < "$input"

@@ -14,31 +14,38 @@ include::content/test.adoc[]
 
 [appendix]
 == PTP Tests
+Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/integrate/tests/sync/G.8272/time-error-in-locked-mode/DPLL-to-PHC/PRTC-A/testspec.adoc
 include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/DPLL-to-PHC/PRTC-A/testspec.adoc[]
 
-Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/integrate/tests/sync/G.8272/time-error-in-locked-mode/DPLL-to-PHC/PRTC-A/testspec.adoc
-
-include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/DPLL-to-PHC/PRTC-B/testspec.adoc[]
+<<<
 
 Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/integrate/tests/sync/G.8272/time-error-in-locked-mode/DPLL-to-PHC/PRTC-B/testspec.adoc
+include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/DPLL-to-PHC/PRTC-B/testspec.adoc[]
 
-include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/PHC-to-SYS/RAN/testspec.adoc[]
+<<<
 
 Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/integrate/tests/sync/G.8272/time-error-in-locked-mode/PHC-to-SYS/RAN/testspec.adoc
+include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/PHC-to-SYS/RAN/testspec.adoc[]
 
-include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/Constellation-to-GNSS-receiver/PRTC-A/testspec.adoc[]
+<<<
 
 Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/integrate/tests/sync/G.8272/time-error-in-locked-mode/Constellation-to-GNSS-receiver/PRTC-A/testspec.adoc
+include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/Constellation-to-GNSS-receiver/PRTC-A/testspec.adoc[]
 
-include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/Constellation-to-GNSS-receiver/PRTC-B/testspec.adoc[]
+<<<
 
 Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/integrate/tests/sync/G.8272/time-error-in-locked-mode/Constellation-to-GNSS-receiver/PRTC-B/testspec.adoc
+include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/Constellation-to-GNSS-receiver/PRTC-B/testspec.adoc[]
 
-include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/1PPS-to-DPLL/PRTC-A/testspec.adoc[]
+<<<
 
 Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/integrate/tests/sync/G.8272/time-error-in-locked-mode/1PPS-to-DPLL/PRTC-A/testspec.adoc
+include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/1PPS-to-DPLL/PRTC-A/testspec.adoc[]
 
-include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/1PPS-to-DPLL/PRTC-B/testspec.adoc[]
+<<<
 
 Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/integrate/tests/sync/G.8272/time-error-in-locked-mode/1PPS-to-DPLL/PRTC-B/testspec.adoc
+include::vse-sync-test/tests/sync/G.8272/time-error-in-locked-mode/1PPS-to-DPLL/PRTC-B/testspec.adoc[]
+
+<<<
 
