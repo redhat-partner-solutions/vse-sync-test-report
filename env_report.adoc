@@ -1,0 +1,34 @@
+include::vars/render-vars.adoc[]
+include::vars/document-vars.adoc[]
+include::vars/redhat-vars.adoc[]
+include::vars/customer-vars.adoc[]
+
+:revnumber: {gitdateshort}
+
+= {subject}
+
+toc::[]
+
+include::content/env.adoc[]
+
+[appendix]
+== Environment validation checklist
+
+
+Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/main/tests/sync/G.8272/environment/version/gnss/firmware/wpc/testspec.adoc 
+
+<<<
+
+Source: https://github.com/redhat-partner-solutions/vse-sync-test/blob/main/tests/sync/G.8272/environment/version/gnss/protocol/wpc/testspec.adoc
+
+<<<
+
+Source: https://github.com/redhat-partner-solutions/vse-sync-test/blob/main/tests/sync/G.8272/environment/version/gnss/model/wpc/testspec.adoc
+
+<<<
+
+Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/main/tests/sync/G.8272/environment/status/gnss/device-detected/wpc/tesspec.adoc
+
+<<<
+
+Source: https://github.com/redhat-partner-solutions/vse-sync-test/tree/main/tests/sync/G.8272/environment/status/gnss/device-detected/wpc/tesspec.adoc
