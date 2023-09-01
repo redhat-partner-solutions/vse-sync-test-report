@@ -1,0 +1,14 @@
+include::../vars/render-vars.adoc[]
+include::../vars/redhat-vars.adoc[]
+
+:toc-title: Table of Contents
+
+= {subject}
+
+toc::[]
+
+== Introduction
+
+{brief}
+
+This test report was generated at {reportdatetime}.
