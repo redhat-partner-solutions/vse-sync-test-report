@@ -5,8 +5,7 @@
 MAKEFILE:=$(abspath $(lastword $(MAKEFILE_LIST)))
 MAKEDIR:=$(dir $(MAKEFILE))
 ROOT:=$(patsubst %/,%,$(MAKEDIR))
-SRC:=src
-OBJ:=obj
+OBJ:=$(ROOT)/obj
 
 BUILDER:=podman
 IMAGE:=quay.io/redhat-cop/ubi8-asciidoctor:v1.3
@@ -49,47 +48,43 @@ define build-pdf-podman =
 podman run --rm --name asciidoctor \
     --user="$(this-user-id)" \
     --userns=keep-id \
-    -v "$(ROOT)/:/documents:Z" \
+    -v "$(shell dirname $@):/documents:Z" \
     -w "/documents" \
     $(IMAGE) \
-    $(ADOC_PDF) -o "$@" "$<"
+    $(ADOC_PDF) -o "$(shell basename $@)" "$(shell basename $<)"
 endef
 
 define build-pdf-docker =
 docker run --rm --name asciidoctor \
     --user "$(this-user-id)" \
-    -v "$(ROOT)/:/documents:Z" \
+    -v "$(shell dirname $@):/documents:Z" \
     -w "/documents" \
     $(IMAGE) \
-    $(ADOC_PDF) -o "$@" "$<"
+    $(ADOC_PDF) -o "$(shell basename $@)" "$(shell basename $<)"
 endef
 
 define build-pdf-native =
 $(ADOC_PDF) -o "$@" "$<"
 endef
 
-$(OBJ)/test-report-head.adoc: $(SRC)/test-report-head.adoc
-	@echo +++++ generating $@ +++++
-	mkdir -p $(shell dirname $@)
-	cp $< $@
+$(OBJ):
+	@echo +++++ preparing $@ +++++
+	mkdir -p $@
+	for DIRNAME in fonts images src styles vars; do cp -r $(ROOT)/$${DIRNAME} $(OBJ)/; done
+	@echo
 
-$(OBJ)/test-report-body.adoc: $(CONFIG) $(JUNIT)
+$(OBJ)/test-report.adoc: $(OBJ) $(CONFIG) $(JUNIT)
 	@echo +++++ generating $@ +++++
-	mkdir -p $(shell dirname $@)/images
-	python3 -m testdrive.asciidoc $(shell dirname $@) $(CONFIG) $(JUNIT) >$@
-
-$(OBJ)/test-report-tail.adoc: $(SRC)/test-report-tail.adoc
-	@echo +++++ generating $@ +++++
-	mkdir -p $(shell dirname $@)
-	cp $< $@
-
-$(OBJ)/test-report.adoc: $(OBJ)/test-report-head.adoc $(OBJ)/test-report-body.adoc $(OBJ)/test-report-tail.adoc
-	@echo +++++ generating $@ +++++
-	@cat $+ >$@
+	echo 'include::src/test-report-head.adoc[]' >$@
+	python3 -m testdrive.asciidoc $(shell dirname $@) $(CONFIG) $(JUNIT) >>$@
+	echo >>$@
+	echo 'include::src/test-report-tail.adoc[]' >>$@
+	@echo
 
 $(PDF): $(OBJ)/test-report.adoc $(CONFIG)
 	@echo +++++ building $@ using builder $(BUILDER) +++++
 	$(build-pdf-$(BUILDER))
+	@echo
 
 all: $(PDF)
 
