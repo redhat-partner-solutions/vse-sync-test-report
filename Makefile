@@ -18,9 +18,10 @@ endif
 REPORT_DATETIME:=$(shell date -u -Iseconds)
 REPORT_DATE:=$(shell date -u -I)
 GIT_HASH:=$(shell jq -r .githash "$(CONFIG)" | cut -c -8)
-SUBJECT:=$(shell jq -r .subject "$(CONFIG)")
-DESCRIPTION:=$(shell jq -r .description "$(CONFIG)")
-BRIEF:=$(shell jq -r .brief "$(CONFIG)")
+TITLE:=$(shell jq -r .title "$(CONFIG)")
+SUBTITLE:=$(shell jq -r .subtitle "$(CONFIG)")
+SUBJECT:=$(TITLE): $(SUBTITLE)
+DESCRIPTION:=$(SUBTITLE)
 
 ifdef TIMESTAMP_FILENAME
 PDF:=$(OBJ)/test-report_$(shell echo $(REPORT_DATETIME) | sed -e s/://g -e s/-//g -e s/+0000/Z/).pdf
@@ -37,8 +38,7 @@ ADOC_PDF:=\
     --attribute=reportdate="$(REPORT_DATE)" \
     --attribute=githash="$(GIT_HASH)" \
     --attribute=subject="$(SUBJECT)" \
-    --attribute=description="$(DESCRIPTION)" \
-    --attribute=brief="$(BRIEF)"
+    --attribute=description="$(DESCRIPTION)"
 
 define this-user-id =
 $(shell id -u)

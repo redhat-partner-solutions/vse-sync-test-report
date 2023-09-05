@@ -1,8 +1,7 @@
 {
     "githash": "92144c452878c18365d2ef07d264d7be3c25febe",
-    "subject": "Synchronization Test Report: T-GM with GNSS",
-    "description": "T-GM with GNSS",
-    "brief": "This test report contains test results and analysis for T-GM with GNSS using Intel WPC NIC. Synchronization test cases are primarily at the solution and system level.",
+    "title": "Synchronization Test Report",
+    "subtitle": "T-GM with GNSS",
     "repositories": {
         "vse-sync-test.git": "/home/dspence/vse-sync-test.git/tests/"
     },

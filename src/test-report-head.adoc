@@ -7,8 +7,3 @@ include::../vars/redhat-vars.adoc[]
 
 toc::[]
 
-== Introduction
-
-{brief}
-
-This test report was generated at {reportdatetime}.
