@@ -7,10 +7,13 @@ MAKEDIR:=$(dir $(MAKEFILE))
 ROOT:=$(patsubst %/,%,$(MAKEDIR))
 OBJ:=$(ROOT)/obj
 
-EXT_ADOC:=$(foreach adoc,$(ADOC),$(OBJ)/ext/$(notdir $(adoc)))
-
 vpath
+
+EXT_ADOC:=$(foreach adoc,$(ADOC),$(OBJ)/ext/$(notdir $(adoc)))
 vpath %.adoc $(foreach adoc,$(ADOC),$(dir $(adoc)))
+
+EXT_PNG:=$(foreach png,$(PNG),$(OBJ)/images/$(notdir $(png)))
+vpath %.png $(foreach png,$(PNG),$(dir $(png)))
 
 BUILDER:=podman
 IMAGE:=quay.io/redhat-cop/ubi8-asciidoctor:v1.3
@@ -88,7 +91,12 @@ $(OBJ)/ext/%.adoc: %.adoc | $(OBJ)/ext
 	cp $< $@
 	@echo
 
-$(OBJ)/test-report.adoc: $(EXT_ADOC) $(CONFIG) $(JUNIT) | $(OBJ) $(OBJ)/ext
+$(OBJ)/images/%.png: %.png | $(OBJ)
+	@echo +++++ staging $@ +++++
+	cp $< $@
+	@echo
+
+$(OBJ)/test-report.adoc: $(EXT_ADOC) $(EXT_PNG) $(CONFIG) $(JUNIT) | $(OBJ) $(OBJ)/ext
 	@echo +++++ generating $@ +++++
 	echo 'include::src/test-report-head.adoc[]' >$@
 	echo >>$@
