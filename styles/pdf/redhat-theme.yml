@@ -64,7 +64,7 @@ footer:
     right:
       content: |
                 {page-number} +
-                {gitdateshort} ({githash})
+                {reportdate} ({githash})
   verso:
     left:
       content: |
@@ -77,7 +77,7 @@ footer:
     right:
       content: |
                 {page-number} +
-                {gitdateshort} ({githash})
+                {reportdate} ({githash})
 heading:
   font-family: $base_font_family
 
@@ -87,3 +87,16 @@ table:
     background_color: cccccc
   body:
     stripe-background-color: #efefef
+
+role:
+  test-success:
+    font-color: #00aa00
+  test-failure:
+    font-color: #ff0000
+  test-error:
+    padding: 10px
+    background-color: #ff0000
+    font-color: #000000
+    font-style: bold
+  deemphasize:
+    font-color: #cccccc
