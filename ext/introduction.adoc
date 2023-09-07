@@ -1,0 +1,6 @@
+== Introduction
+
+This test report contains test results and analysis for T-GM with GNSS using Intel WPC NIC.
+Synchronization test cases are primarily at the solution and system level.
+
+This test report was generated at {reportdatetime}.
