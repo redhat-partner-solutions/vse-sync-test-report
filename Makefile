@@ -41,6 +41,7 @@ ADOC_PDF:=\
     asciidoctor-pdf \
     -r asciidoctor-diagram \
     --failure-level=WARN \
+    --attribute=allow-uri-read \ # To be revised
     --attribute=lang="$(LANGUAGE)" \
     --attribute=reportdatetime="$(REPORT_DATETIME)" \
     --attribute=reportdate="$(REPORT_DATE)" \
