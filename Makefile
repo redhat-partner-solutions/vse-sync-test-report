@@ -31,6 +31,8 @@ SUBTITLE:=$(shell jq -r .subtitle "$(CONFIG)")
 SUBJECT:=$(TITLE): $(SUBTITLE)
 DESCRIPTION:=$(SUBTITLE)
 
+ADOC_ATTRIBUTES:=$(foreach attribute,$(ATTRIBUTES),--attribute="$(attribute)")
+
 ifdef TIMESTAMP_FILENAME
 PDF:=$(OBJ)/test-report_$(shell echo $(REPORT_DATETIME) | sed -e s/://g -e s/-//g -e s/+0000/Z/).pdf
 else
@@ -46,7 +48,8 @@ ADOC_PDF:=\
     --attribute=reportdate="$(REPORT_DATE)" \
     --attribute=githash="$(GIT_HASH)" \
     --attribute=subject="$(SUBJECT)" \
-    --attribute=description="$(DESCRIPTION)"
+    --attribute=description="$(DESCRIPTION)" \
+    $(ADOC_ATTRIBUTES)
 
 define this-user-id =
 $(shell id -u)
