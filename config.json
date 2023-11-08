@@ -1,9 +1,8 @@
 {
-    "githash": "92144c452878c18365d2ef07d264d7be3c25febe",
-    "title": "Synchronization Test Report",
-    "subtitle": "T-GM with GNSS",
+    "title": "Test Report",
+    "subtitle": "Test report subtitle",
     "repositories": {
-        "vse-sync-test.git": "/home/dspence/vse-sync-test.git/tests/"
+        "vse-sync-test.git": "/home/user/vse-sync-test/tests/"
     },
     "suites": {
         "Environment": {
