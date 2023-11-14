@@ -16,7 +16,7 @@ EXT_PNG:=$(foreach png,$(PNG),$(OBJ)/images/$(notdir $(png)))
 vpath %.png $(foreach png,$(PNG),$(dir $(png)))
 
 BUILDER:=podman
-IMAGE:=quay.io/redhat-cop/ubi8-asciidoctor:v1.3
+IMAGE:=quay.io/redhat-cop/ubi8-asciidoctor:v2.1
 LANGUAGE:=en_US
 
 ifndef CONFIG
@@ -49,6 +49,7 @@ ADOC_PDF:=\
     --attribute=githash="$(GIT_HASH)" \
     --attribute=subject="$(SUBJECT)" \
     --attribute=description="$(DESCRIPTION)" \
+    --attribute=revdate="$(date +'%Y-%m-%d')" \
     $(ADOC_ATTRIBUTES)
 
 define this-user-id =
@@ -81,7 +82,7 @@ endef
 $(OBJ):
 	@echo +++++ preparing $@ +++++
 	mkdir -p $@
-	for DIRNAME in fonts images src styles vars; do cp -r $(ROOT)/$${DIRNAME} $(OBJ)/; done
+	for DIRNAME in src pdf-assets vars; do cp -r $(ROOT)/$${DIRNAME} $(OBJ)/; done
 	@echo
 
 $(OBJ)/ext: | $(OBJ)

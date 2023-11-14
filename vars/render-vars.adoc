@@ -9,12 +9,13 @@
 :sectnumlevels: 6
 :numbered:
 :chapter-label:
-:icons: font
+:icons: image
 :pdf-page-size: A4
-:pdf-style: redhat
-:pdf-stylesdir: styles/pdf/
-:pdf-fontsdir: fonts/
-:imagesdir: images/
+:pdf-theme: redhat
+:pdf-themesdir: pdf-assets
+:iconsdir: pdf-assets/icons/
+:icontype: svg
+:imagesdir: pdf-assets/images/
 
 ifdef::backend-pdf[]
 :pygments-style: tango

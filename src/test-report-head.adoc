@@ -1,5 +1,4 @@
 include::../vars/render-vars.adoc[]
-include::../vars/redhat-vars.adoc[]
 
 :toc-title: Table of Contents
 
