@@ -5,6 +5,7 @@
 MAKEFILE:=$(abspath $(lastword $(MAKEFILE_LIST)))
 MAKEDIR:=$(dir $(MAKEFILE))
 ROOT:=$(patsubst %/,%,$(MAKEDIR))
+TESTDRIVE_DIR=$(MAKEDIR)/src
 OBJ:=$(ROOT)/obj
 
 vpath
@@ -105,7 +106,7 @@ $(OBJ)/test-report.adoc: $(EXT_ADOC) $(EXT_PNG) $(CONFIG) $(JUNIT) | $(OBJ) $(OB
 	echo 'include::src/test-report-head.adoc[]' >$@
 	echo >>$@
 	for ADOC in $(EXT_ADOC); do printf 'include::ext/%s[]\n\n' "$$(basename "$$ADOC")"; done >>$@
-	python3 -m testdrive.asciidoc $(shell dirname $@) $(CONFIG) $(JUNIT) >>$@
+	env PYTHONPATH=$(TESTDRIVE_DIR) python3 -m testdrive.asciidoc $(shell dirname $@) $(CONFIG) $(JUNIT) >>$@
 	echo >>$@
 	echo 'include::src/test-report-tail.adoc[]' >>$@
 	@echo
