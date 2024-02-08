@@ -12,3 +12,4 @@ template_wip/
 .gradle/
 .projectile
 .DS_Store
+*.pyc
