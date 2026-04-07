@@ -20,13 +20,15 @@ class Config(dict):
         it does not guarantee that the path exists or has required files.
         """
         try:
-            test_id = case['test_id']
             suite = self['suites'][case.suite]
             baseurl = suite['baseurl']
-            if test_id.startswith(baseurl):
+            # Prefer canonical tree URL (JUnit property test_directory_url) when
+            # test_id is human-readable only.
+            candidate = case.get('test_directory_url') or case.get('test_id')
+            if candidate and candidate.startswith(baseurl):
                 return os.path.join(
                     self['repositories'][suite['repository']],
-                    test_id.split(baseurl, maxsplit=1)[1].split("?")[0].lstrip('/'),
+                    candidate.split(baseurl, maxsplit=1)[1].split("?")[0].lstrip('/'),
                 )
         except KeyError:
             pass
@@ -65,6 +67,15 @@ class Config(dict):
 
 NOT_RECORDED = '[.deemphasize]_not recorded_'
 EMPTY = '[.deemphasize]#-#'
+
+def pdf_test_identifier_cell(case):
+    """AsciiDoc for *test identifier* table cell: same visible name, clickable GitHub link."""
+    display = case.get('test_id')
+    url = case.get('test_directory_url')
+    if url and display:
+        safe = display.replace(']', '\\]')
+        return f'link:{url}[{safe}]'
+    return display or NOT_RECORDED
 
 def a_test_success(val):
     """Return asciidoc marking `val` as test success."""
@@ -348,7 +359,6 @@ class TestSuite(OrderedDict):
     def results(self, objdir, config, level):
         """Generate asciidoc results for this test suite."""
         for case in self.values():
-            test_id = case.get('test_id')
             yield ''
             yield case.anchor_result
             yield f'{level} {config.case_title(case)}'
@@ -357,7 +367,7 @@ class TestSuite(OrderedDict):
             yield '|==='
             yield ''
             yield row('*test specification*', case.xref_spec)
-            yield row('*test identifier*', test_id or NOT_RECORDED)
+            yield row('*test identifier*', pdf_test_identifier_cell(case))
             yield row('*timestamp*', case.timestamp or NOT_RECORDED)
             duration = NOT_RECORDED if case.duration is None else case.duration
             yield row('*duration (s)*', duration)
@@ -445,9 +455,10 @@ def main():
             "the value at 'suites' mapping suite name to an object which maps",
             "'repository' to a repository name (per 'repositories') and",
             "'baseurl' to the base URL for this suite's test identifiers",
-            "(the test identifier for a test is expected in the property for",
-            "'test_id' in JUnit; the relative path for this id under 'baseurl'",
-            "gives the relative path into the repository for testspec.adoc)",
+            "(JUnit properties 'test_id' and 'test_directory_url'; the latter",
+            "when present is the canonical tree URL used for testspec paths and",
+            "PDF links when 'test_id' is display-only; relative path under 'baseurl'",
+            "gives the path into the repository for testspec.adoc)",
         )),
     )
     aparser.add_argument(
